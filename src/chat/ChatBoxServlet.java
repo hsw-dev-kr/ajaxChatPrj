@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/ChatBoxServlet")
 public class ChatBoxServlet extends HttpServlet {
@@ -17,11 +18,12 @@ public class ChatBoxServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		String userID = request.getParameter("userID");
+		String userID = request.getParameter("userID");	
 		if(userID == null || userID.equals("")) {
-			response.getWriter().write("0");
+			response.getWriter().write("");
 		}else {
 			try {
+
 				userID = URLDecoder.decode(userID, "UTF-8");
 				response.getWriter().write(getBox(userID));
 			}catch(Exception e) {
@@ -37,12 +39,18 @@ public class ChatBoxServlet extends HttpServlet {
 		ChatDAO chatDAO = new ChatDAO();
 		ArrayList<ChatDTO> chatList = chatDAO.getBox(userID);
 		if(chatList.size() == 0) return "";
-		for(int i=0; i<chatList.size(); i++) {
+		for(int i=chatList.size() - 1; i >= 0; i--) {
+			String unread ="";
+			if(userID.equals(chatList.get(i).getToid())){
+				unread = chatDAO.getUnreadChat(chatList.get(i).getFromid(), userID) + "";
+				if(unread.equals("0")) unread ="";
+			}
 			result.append("[{\"value\": \"" + chatList.get(i).getFromid() + "\"},");
 			result.append("{\"value\": \"" + chatList.get(i).getToid() + "\"},");
 			result.append("{\"value\": \"" + chatList.get(i).getChatcontent() + "\"},");
-			result.append("{\"value\": \"" + chatList.get(i).getChattime() + "\"}]");
-			if(i != chatList.size() -1) result.append(",");
+			result.append("{\"value\": \"" + chatList.get(i).getChattime() + "\"},");
+			result.append("{\"value\": \"" + unread + "\"}]");
+			if(i != 0) result.append(",");
 		}
 		result.append("], \"last\":\"" + chatList.get(chatList.size() -1 ).getChatid() + "\"}");
 		return result.toString();

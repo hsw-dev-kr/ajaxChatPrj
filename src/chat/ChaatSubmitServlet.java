@@ -8,15 +8,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-@WebServlet("/ChatSubmitServlet")
-public class ChatSubmitServlet extends HttpServlet {
+@WebServlet("/ChaatSubmitServlet")
+public class ChaatSubmitServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html; charset=UTF-8");
+		response.setContentType("text/html; chatset=UTF-8");
 		String fromID = request.getParameter("fromID");
 		String toID = request.getParameter("toID");
 		String chatContent = request.getParameter("chatContent");
@@ -26,11 +25,6 @@ public class ChatSubmitServlet extends HttpServlet {
 		}else {
 			fromID = URLDecoder.decode(fromID, "UTF-8");
 			toID = URLDecoder.decode(toID, "UTF-8");
-			HttpSession session = request.getSession();
-			if(!fromID.equals((String) session.getAttribute("userID"))) {
-				response.getWriter().write("");
-				return;
-			}
 			chatContent = URLDecoder.decode(chatContent, "UTF-8");
 			response.getWriter().write(new ChatDAO().submit(fromID, toID, chatContent)+ "");
 		}

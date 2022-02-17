@@ -135,7 +135,7 @@
 					}
 				});
 			}
-			function getInifiniteUnread(){ /* 반복적으로 서버한테 읽지 메시지 갯수를 달라고 함 */
+			function getInfiniteUnread(){ /* 반복적으로 서버한테 읽지 메시지 갯수를 달라고 함 */
 				setInterval(function(){
 					getUnread();
 				}, 4000);
@@ -174,6 +174,7 @@
 						aria-expanded="false">회원관리<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
+						<li><a href="update.jsp">회원정보 수정</a></li>
 						<li><a href="logoutAction.jsp">로그아웃</a></li>
 					</ul>
 				</li>
@@ -194,7 +195,7 @@
 						<div class="clearfix"></div>
 					</div>
 					<div id="chat" class="panel-collapse collapse in">
-						<div id="chatList" class="portlet-body chat-widget" style="overflow-y; auto; width: auto; height: 600px;">
+						<div id="chatList" class="portlet-body chat-widget" style="overflow-y: auto; width: auto; height: 600px;">
 						</div>
 						<div class="portlet-footer">
 							<div class="row" style="height: 90px;">
@@ -272,7 +273,7 @@
 			getUnread();
 			chatListFunction('0');
 			getInfiniteChat();
-			getInifiniteUnread();
+			getInfiniteUnread();
 		});
 	</script>
 </body>

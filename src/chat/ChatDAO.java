@@ -164,7 +164,7 @@ public class ChatDAO {
 		}
 		return -1;
 	}
-	public int getAllUnreadChat(String userID) {
+	public int getAllUnreadChat(String userID) {//현재 읽지않은 모든 메세지 갯수
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -248,5 +248,33 @@ public class ChatDAO {
 			}
 		}
 		return chatList;
+	}
+	public int getUnreadChat(String fromID, String toID) {//현재 읽지않은 모든 메세지 갯수
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String SQL= "SELECT COUNT(chatID) FROM CHAT WHERE fromID = ? AND toID = ? AND chatRead = 0";
+		try {
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, fromID);
+			pstmt.setString(2, toID);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getInt("COUNT(chatID)");
+			}
+			return 0;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!= null) rs.close();
+				if(pstmt !=null) pstmt.close();
+				if(conn !=null) conn.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return -1;
 	}
 }

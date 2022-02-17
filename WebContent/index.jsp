@@ -17,7 +17,7 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>
 <script type="text/javascript">
-	function getUnread(){
+	function getUnread(){/* 접속한 사용자가 읽지 않은 메세지 갯수 */
 		$.ajax({
 			type: "POST",
 			url: "./chatUnread",
@@ -33,7 +33,7 @@
 			}
 		});
 	}
-	function getInifiniteUnread(){ /* 반복적으로 서버한테 읽지 메시지 갯수를 달라고 함 */
+	function getInfiniteUnread(){ /* 반복적으로 서버한테 읽지 메시지 갯수를 달라고 함 */
 		setInterval(function(){
 			getUnread();
 		}, 4000);
@@ -86,6 +86,7 @@
 						aria-expanded="false">회원관리<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
+						<li><a href="update.jsp">회원정보 수정</a></li>
 						<li><a href="logoutAction.jsp">로그아웃</a></li>
 					</ul>
 				</li>
@@ -136,18 +137,19 @@
 	<script type="text/javascript">
 		$('#messageModal').modal("show");
 	</script>
-
 	<%
 		session.removeAttribute("messageContent");
 		session.removeAttribute("messageType");
 		}
 	%>
+
 	<%
 		if(userID != null){	
 	%>
 		<script type="text/javascript">
 			$(document).ready(function(){ /* 반복적인 메시지를 불러오는 실행 하는함수 */
-				getInifiniteUnread();
+				getUnread();
+				getInfiniteUnread();
 			});
 		</script>
 	<%

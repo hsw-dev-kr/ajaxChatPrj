@@ -7,7 +7,7 @@ public class UserDTO {
 	String username;
 	int userage;
 	String usergender;
-	String usereamil;
+	String useremail;
 	String userprofile;
 	
 	public String getUserid() {
@@ -40,11 +40,12 @@ public class UserDTO {
 	public void setUsergender(String usergender) {
 		this.usergender = usergender;
 	}
-	public String getUsereamil() {
-		return usereamil;
+	
+	public String getUseremail() {
+		return useremail;
 	}
-	public void setUsereamil(String usereamil) {
-		this.usereamil = usereamil;
+	public void setUseremail(String useremail) {
+		this.useremail = useremail;
 	}
 	public String getUserprofile() {
 		return userprofile;

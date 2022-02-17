@@ -110,6 +110,7 @@
 						aria-expanded="false">회원관리<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
+						<li><a href="update.jsp">회원정보 수정</a></li>
 						<li><a href="logoutAction.jsp">로그아웃</a></li>
 					</ul>
 				</li>
@@ -135,8 +136,7 @@
 		</table>
 	</div>
 	<div class="container">
-		<table id="friendResult" class="table table-bordered table-hover" style="text-align: center; border: 1px solid #dddddd">
-			
+		<table id="friendResult" class="table table-bordered table-hover" style="text-align: center; border: 1px solid #dddddd">			
 		</table>
 	</div>
 		<%
